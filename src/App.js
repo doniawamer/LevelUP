@@ -1,56 +1,133 @@
-import { DataContext } from "./DataContext";
-import { useEffect, useState } from "react";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Auth from "./pages/Auth";
-import Swap from "./pages/Swap";
-
+import { DataContext, CardsContext } from "./Context";
+import { useEffect, useState, useContext } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Balances } from "./pages/Balances";
-import FetchNfts from "./pages/Collectibles/FetchNfts";
 
-import TransferNfts from "./pages/Collectibles/TransferNfts";
-import NewERC721Collection from "./pages/Collectibles/NewERC721Collection";
-import NewERC1155Collection from "./pages/Collectibles/NewERC1155Collection";
-import MintERC721 from "./pages/Collectibles/MintERC721";
-import MintERC1155 from "./pages/Collectibles/MintERC1155";
+import Welcome from "./pages/Onboarding/Welcome";
+import GetStarted from "./pages/Onboarding/GetStarted";
+import MintInstructions from "./pages/Onboarding/MintInstructions";
+import Profile from "./pages/Onboarding/Profile";
+import Home from "./pages/Main/Home";
+import Explore from "./pages/Main/Explore";
+import Quests from "./pages/Main/Quests";
+import Lead from "./pages/Main/Lead";
+import Auth from "./pages/Auth";
+
 import { setupSDK } from "./utils";
+import Alice from "./assets/Fonts/Alice-Regular.ttf";
+import CssBaseline from "@mui/material/CssBaseline";
 
-function App() {
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "Alice",
+    button: {
+      textTransform: "none",
+    },
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        "@font-face": {
+          fontFamily: "Alice",
+          src: `url(${Alice}) format("truetype")`,
+        },
+        body: {
+          color: "white",
+        },
+      },
+    },
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 375,
+      md: 600,
+      lg: 900,
+      xl: 1200,
+    },
+  },
+  shadows: ["none"],
+  overrides: {
+    MuiInputLabel: {
+      outline: "none",
+      boxShadow: "none",
+    },
+  },
+});
+const initialCardsState = [
+  {
+    name: "@IssaAmer ",
+    reactions: ["smile", "smile", "heart", "smile", "heart", "heart"],
+    quests: 2,
+    count: 6,
+  },
+  {
+    name: "@Doniawamer",
+    reactions: ["smile", "heart"],
+    quests: 2,
+    count: 2,
+  },
+];
+
+export default function App() {
   setupSDK();
 
   const [loginResponse, setLoginResponse] = useState(
     JSON.parse(localStorage.getItem("loginResponse")) || {}
   );
+  const name =
+    loginResponse?.loginResponse?.userInfo?.name?.split(" ")[0] || "";
+  const [cards, setCards] = useState([
+    {
+      name: `@${name}`,
+      reactions: ["smile", "heart", "smile", "heart", "heart"],
+      quests: 3,
+      count: 5,
+    },
+    ...initialCardsState,
+  ]);
 
   useEffect(() => {
     localStorage.setItem("loginResponse", JSON.stringify(loginResponse));
   }, [loginResponse]);
 
   return (
-    <DataContext.Provider
-      value={{
-        loginResponse: loginResponse,
-        setLoginResponse: setLoginResponse,
-      }}
-    >
-      <body className="stretched device-xl bg-white no-transition">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/balances" element={<Balances />} />
-          <Route path="/collectibles" element={<FetchNfts />} />
-          <Route path="/collectibles/transfer" element={<TransferNfts />} />
-          <Route path="/collectibles/create-erc721-collection" element={<NewERC721Collection />} />
-          <Route path="/collectibles/create-erc1155-collection" element={<NewERC1155Collection />} />
-          <Route path="/collectibles/mint-erc721-collection" element={<MintERC721 />} />
-          <Route path="/collectibles/mint-erc1155-collection" element={<MintERC1155 />} />          
-          <Route path="/swap" element={<Swap />} />
-        </Routes>
-      </body>
-    </DataContext.Provider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <DataContext.Provider
+        value={{
+          loginResponse: loginResponse,
+          setLoginResponse: setLoginResponse,
+        }}
+      >
+        <CardsContext.Provider
+          value={{
+            cards: cards,
+            setCards: setCards,
+          }}
+        >
+          <Routes>
+            {/* {name ? (
+              <> */}
+            <Route path="/" element={<Home />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/quests" element={<Quests />} />
+            <Route path="/lead" element={<Lead />} />
+            {/* </>
+            ) : (
+              <> */}
+            <Route path="/" element={<Welcome />} />
+            <Route path="/start" element={<GetStarted />} />
+            <Route path="/mint" element={<MintInstructions />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="*" element={<Home />} />
+            {/* </> */}
+            {/* )} */}
+          </Routes>
+        </CardsContext.Provider>
+      </DataContext.Provider>
+    </ThemeProvider>
   );
 }
-
-export default App;

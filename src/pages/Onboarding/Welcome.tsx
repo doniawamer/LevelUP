@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 //   network: "testnet" as any,
 // };
 
+// Testing prod
 // FOR LIVE HOSTING/PRODUCTION SITE PLS USE THIS
 const verifierMap: Record<string, any> = {
   google: {

@@ -32,7 +32,7 @@ const verifierMap: Record<string, any> = {
     name: "Google",
     typeOfLogin: "google",
     clientId:
-      "852640103435-0qhvrgpkm66c9hu0co6edkhao3hrjlv3.apps.googleusercontent.com",
+      "1014286551041-8djdjdhjjsg759bvgdo0b9gspr4n6k7n.apps.googleusercontent.com",
     verifier: "level-up-test-net",
   },
 };

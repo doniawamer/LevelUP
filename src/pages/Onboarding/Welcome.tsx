@@ -13,8 +13,8 @@ import { useNavigate } from "react-router-dom";
 //     name: "Google",
 //     typeOfLogin: "google",
 //     clientId:
-//       "852640103435-0qhvrgpkm66c9hu0co6edkhao3hrjlv3.apps.googleusercontent.com",
-//     verifier: "liquality-google-testnet",
+//       "1014286551041-8djdjdhjjsg759bvgdo0b9gspr4n6k7n.apps.googleusercontent.com",
+//     verifier: "level-up-test-net",
 //   },
 // };
 
@@ -26,7 +26,6 @@ import { useNavigate } from "react-router-dom";
 //   network: "testnet" as any,
 // };
 
-// Testing prod
 // FOR LIVE HOSTING/PRODUCTION SITE PLS USE THIS
 const verifierMap: Record<string, any> = {
   google: {
@@ -34,7 +33,7 @@ const verifierMap: Record<string, any> = {
     typeOfLogin: "google",
     clientId:
       "852640103435-0qhvrgpkm66c9hu0co6edkhao3hrjlv3.apps.googleusercontent.com",
-    verifier: "liquality-google-testnet",
+    verifier: "level-up-test-net",
   },
 };
 

@@ -77,7 +77,7 @@ export default function MintInstructions() {
               setForm((prev) => ({ ...prev, lens: value }));
             }}
           >
-            NFT Name
+            Lens Profile
           </ButtonInput>
           <Button
             variant="secondary"

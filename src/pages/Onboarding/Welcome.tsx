@@ -7,6 +7,7 @@ import { CreateWallet } from "../../components/Auth/CreateWallet";
 import { SignIn } from "../../components/Auth/SignIn";
 import { Button } from "../../components/Button";
 import { useNavigate } from "react-router-dom";
+
 //FOR DEVELOPMENT PLEASE USE THESE
 // const verifierMap: Record<string, any> = {
 //   google: {

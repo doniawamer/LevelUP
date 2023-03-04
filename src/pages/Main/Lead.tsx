@@ -140,7 +140,7 @@ export default function Lead() {
                     align="center"
                     sx={{ borderBottom: "none", paddingY: 1 }}
                   >
-                    <Points sx={{ fontSize: "15px" }} number={i} noPoints />
+                    <Points sx={{ fontSize: "15px" }} number={i + 1} noPoints />
                   </TableCell>
                   <TableCell
                     align="center"
